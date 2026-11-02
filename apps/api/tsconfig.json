@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "module": "nodenext",
+    "target": "es2020",
+    "moduleResolution": "NodeNext",
+    "lib": ["esnext"],
+    "types": ["node"],
+    "sourceMap": false,
+    "declaration": false,
+    "declarationMap": false,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "strict": true,
+    "noEmit": false,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "skipLibCheck": true,
+    "noEmitOnError": true,
+    "forceConsistentCasingInFileNames": true,
+    "esModuleInterop": true,
+    "removeComments": true,
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true
+  },
+  "include": ["src"]
+}
