@@ -42,12 +42,36 @@ class UserController {
     }
   };
 
+  find = async (req: Request, res: Response) => {
+    try {
+      const { limit, page, ...query } = req.query;
+
+      const users = await this.service.find(query, Number(limit), Number(page));
+
+      return res.status(200).json({ message: "Usuários encontrados com sucesso!", data: users });
+    } catch (error: any) {
+      ResolveError.resolve(error);
+    }
+  };
+
+  findByEmail = async (req: Request, res: Response) => {
+    try {
+      const { email } = req.body;
+
+      const user = this.service.findByEmail(email);
+
+      return res.status(200).json({ message: "Usuário encontrado com sucesso!", data: user });
+    } catch (error: any) {
+      ResolveError.resolve(error);
+    }
+  };
+
   updatePass = async (req: Request, res: Response) => {
     try {
-      const newPassword = req.body.newPassword;
+      const password_hash = req.body.password_hash;
       const id = req.params.id as string;
 
-      await this.service.updatePass(newPassword, id);
+      await this.service.updatePass(password_hash, id);
 
       return res.status(200).json({ message: "Atualização realizada com sucesso!", data: null });
     } catch (error: any) {

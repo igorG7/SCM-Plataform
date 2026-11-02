@@ -16,8 +16,6 @@ export class Password {
   static async hash(password: string) {
     const spicyPassword = Password.applyPepper(password);
 
-    console.log(spicyPassword);
-
     const hash = await argon.hash(spicyPassword, {
       type: argon.argon2id,
       memoryCost: 2 ** 16, // 64mb

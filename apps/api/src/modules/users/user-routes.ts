@@ -1,13 +1,17 @@
 import { Router } from "express";
 import { UserFactory } from "./factory.js";
+import { createUser, updateUser, updatePassword } from "./middlewares/index.js";
 
 const controller = UserFactory();
 
 const routes = Router();
 
-routes.post("/", controller.create);
+routes.post("/", createUser, controller.create);
+routes.get("/", controller.find);
 routes.get("/:id", controller.findById);
-routes.patch("/:id", controller.update);
-routes.patch("/password/:id", controller.updatePass);
+routes.patch("/:id", updateUser, controller.update);
+
+routes.get("/email", controller.findById);
+routes.patch("/password/:id", updatePassword, controller.updatePass);
 
 export default routes;

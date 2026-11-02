@@ -15,6 +15,17 @@ class UserRepository implements IUserRepository {
     return user;
   };
 
+  find = async (query: Partial<IUser>, limit: number, skip: number): Promise<IUser[] | null> => {
+    console.log(query);
+    const users = await this.User.find(query).limit(limit).skip(skip);
+    return users;
+  };
+
+  findOne = async (query: Partial<IUser>): Promise<IUser | null> => {
+    const user = await this.User.findOne(query);
+    return user;
+  };
+
   update = async (data: Partial<IUser>, id: string): Promise<IUser | null> => {
     const user = await this.User.findByIdAndUpdate(id, { ...data }, { new: true });
     return user;
@@ -31,6 +42,10 @@ class UserRepository implements IUserRepository {
   findByEmail = async (email: string): Promise<IUser | null> => {
     const user = await this.User.findOne({ email });
     return user;
+  };
+
+  updatePhoto = async (file: {}, id: string): Promise<IUser | null> => {
+    return null;
   };
 }
 
