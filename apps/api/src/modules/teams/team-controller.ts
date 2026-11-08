@@ -19,7 +19,7 @@ class TeamController {
 
   findBySlug = async (req: Request, res: Response) => {
     try {
-      const { slug } = req.body;
+      const slug = req.params.slug as string;
 
       const team = await this.service.findBySlug(slug);
 
@@ -44,9 +44,9 @@ class TeamController {
 
   findAvailable = async (req: Request, res: Response) => {
     try {
-      const query = req.query;
+      const { limit, page, ...query } = req.query;
 
-      const teams = await this.service.findAvailable(query);
+      const teams = await this.service.findAvailable(query, Number(limit), Number(page));
 
       return res.status(200).json({ message: "Times encontrados com sucesso!", data: teams });
     } catch (error: any) {
@@ -72,7 +72,7 @@ class TeamController {
 
       const team = await this.service.delete(id);
 
-      return res.status(200).json({ message: "Time encontrado com sucesso!", data: team });
+      return res.status(204).json({ message: "Time deletado com sucesso!", data: team });
     } catch (error: any) {
       ResolveError.resolve(error);
     }
@@ -93,7 +93,7 @@ class TeamController {
 
   claim = async (req: Request, res: Response) => {
     try {
-      const teamId = req.params.id as string;
+      const teamId = req.params.teamId as string;
       const { userId } = req.body;
 
       const team = await this.service.claim(teamId, userId);
@@ -106,7 +106,7 @@ class TeamController {
 
   release = async (req: Request, res: Response) => {
     try {
-      const teamId = req.params.id as string;
+      const teamId = req.params.teamId as string;
       const { userId } = req.body;
 
       const team = await this.service.release(teamId, userId);

@@ -34,8 +34,8 @@ class TeamRepository implements ITeamRepository {
     return team;
   };
 
-  findAvailable = async (query: any): Promise<ITeam[]> => {
-    const teams = await this.Team.find({ available: true, query });
+  findAvailable = async (query: any, limit = 20, skip = 0): Promise<ITeam[]> => {
+    const teams = await this.Team.find(query).limit(limit).skip(skip);
     return teams;
   };
 

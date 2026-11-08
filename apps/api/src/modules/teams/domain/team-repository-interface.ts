@@ -12,7 +12,7 @@ export interface ITeamRepository {
   findById(id: string): Promise<ITeam | null>;
   findBySlug(slug: string): Promise<ITeam | null>;
   findAll(limit: number, skip: number): Promise<ITeam[]>;
-  findAvailable(query: any): Promise<ITeam[]>;
+  findAvailable(query: any, limit?: number, skip?: number): Promise<ITeam[]>;
 
   update(id: string, data: TypeUpdateTeamData): Promise<ITeam | null>;
 

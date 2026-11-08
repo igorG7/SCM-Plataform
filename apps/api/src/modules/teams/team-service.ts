@@ -19,7 +19,7 @@ class TeamService {
   };
 
   create = async (data: any) => {
-    data.slug = this.processSlug(data.slug);
+    data.slug = this.processSlug(data.name);
 
     const team = await this.repository.create(data);
 
@@ -42,8 +42,11 @@ class TeamService {
     return teams;
   };
 
-  findAvailable = async (query: any) => {
-    const teams = await this.repository.findAvailable(query);
+  findAvailable = async (query: any, limit: number, page: number) => {
+    const skip = (page - 1) * limit;
+    query = !query ? { available: true, query } : { available: true };
+
+    const teams = await this.repository.findAvailable(query, limit, skip);
     return teams;
   };
 
@@ -89,7 +92,7 @@ class TeamService {
 
       if (!team) throw new NotFound("Time não encontrado.");
 
-      await this.userService.update({ team_id: "" }, userId, session);
+      await this.userService.update({ team_id: null }, userId, session);
 
       return team;
     });
