@@ -10,7 +10,7 @@ export interface IUser {
   nickname: string;
   email: string;
   password_hash: string;
-  team_id?: string | ObjectId;
+  team_id?: string | ObjectId | null;
   role: TypeUserRoles;
   status: TypeUserStatus;
   description?: string;

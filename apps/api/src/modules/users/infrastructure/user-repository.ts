@@ -1,4 +1,4 @@
-import { Model } from "mongoose";
+import { Model, type ClientSession } from "mongoose";
 import type { IUser } from "../domain/user-interface.js";
 import type { IUserRepository } from "../domain/user-repository-interface.js";
 
@@ -26,8 +26,17 @@ class UserRepository implements IUserRepository {
     return user;
   };
 
-  update = async (data: Partial<IUser>, id: string): Promise<IUser | null> => {
-    const user = await this.User.findByIdAndUpdate(id, { ...data }, { new: true });
+  update = async (
+    data: Partial<IUser>,
+    id: string,
+    session?: ClientSession,
+  ): Promise<IUser | null> => {
+    const user = await this.User.findByIdAndUpdate(
+      id,
+      { ...data },
+      { new: true, session: session ?? null },
+    );
+
     return user;
   };
 
